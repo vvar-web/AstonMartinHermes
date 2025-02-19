@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Project - Contact</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<header>
+    <div style="float: left; margin-right: 20px;">
+        <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Logo" style="width: 300px; height: auto;">
+    </div>
+    <h1>Welcome to Aston Martin F1 team</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Page Title -->
+<div style="margin: 20px 0;">
+    <h2 style="float: left; margin-right: 20px; color:white">Contact Us</h2>
+</div>
+
+<!-- contact us middle section-->
+<div style="display: flex; justify-content: space-between;">
+  <section style="flex: 1;">
+    <p style="color: white;">Email: <a href="mailto:info@hermes.com" style="color: #FFA726; text-decoration: none;">info@hermes.com</a></p>
+    <p style="color: white;">Phone: <a href="tel:+123456789" style="color: #FFA726; text-decoration: none;">+123456789</a></p>
+    <!-- contact us form-->
+    <form id="contactForm" class="contact-form" onsubmit="return validateForm('contactForm')">
+        <input type="text" id="contactName" placeholder="Full Name" required>
+        <input type="email" id="contactEmail" placeholder="Email" required>
+        <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+  </section>
+  <section style="flex: 2;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2924.6706009136237!2d-1.0294082873754598!3d52.0774439718316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48771c4326a99a09%3A0xa198b56c6ad35bff!2sAston%20Martin%20Formula%20One%20Team!5e1!3m2!1sen!2sin!4v1739708029236!5m2!1sen!2sin" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </section>
+</div>
+
+<!-- Footer with Contact Form, Sitemap, and Contact Info -->
+<footer>
+<div class="footer-container">
+    <section class="contact-form">
+        <h2>Contact</h2>
+        <form id="footerForm" onsubmit="return validateForm('footerForm')">
+            <input type="text" id="footerName" placeholder="Full Name" required>
+            <input type="email" id="footerEmail" placeholder="Email" required>
+            <textarea id="footerMessage" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+    <section class="sitemap">
+        <h2>Navigation</h2>
+        <ul style="list-style-type: none; padding-left: 0;">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </section>
+    <section class="contact-info">
+        <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Image" style="width: 200px; height: auto;">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:info@hermes.com">info@hermes.com</a></p>
+        <p>Phone: <a href="tel:+123456789">+123456789</a></p>
+    </section>
+</div>
+</footer>
+
+<script>
+    function validateForm(formId) {
+        const form = document.getElementById(formId);
+        const name = form.querySelector('input[type="text"]').value;
+        const email = form.querySelector('input[type="email"]').value;
+        const message = form.querySelector('textarea').value;
+    
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+        if (name.length < 3) {
+            alert('Full Name must be at least 3 characters long.');
+            return false;
+        }
+    
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+    
+        if (message.length < 10) {
+            alert('Message must be at least 10 characters long.');
+            return false;
+        }
+    
+        return true;
+    }
+    </script>
+</body>
+</html>

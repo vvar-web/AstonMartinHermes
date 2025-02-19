@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Project - Services</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<header>
+    <div style="float: left; margin-right: 20px;">
+        <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Logo" style="width: 300px; height: auto;">
+    </div>
+    <h1>Welcome to Aston Martin F1 team</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Page Title -->
+<div style="margin: 20px 0;">
+    <h2 style="color: white; text-align: left;">Services</h2>
+</div>
+
+<!-- Services -->
+<section class="services">
+    <!-- Service 1 -->
+    <div class="service-item" style="display: flex; margin-bottom: 20px;">
+        <div class="service-image" style="flex: 1;">
+            <img src="./Fernando_hero.webp" alt="Service 1 Image" style="width: 100%; height: auto;">
+        </div>
+        <div class="service-description" style="flex: 2; padding-left: 20px;">
+            <h3 style="color: white;">Engineering Services</h3>
+            <p style="color: white;">Aston Martin F1 team provides top-notch engineering services for high-performance vehicles, ensuring the best performance and reliability.
+                The team employs cutting-edge engineering techniques to design and develop high-performance vehicles. 
+                This includes aerodynamic optimization, materials science, and advanced simulation technologies to ensure peak performance on the track.</p>
+        </div>
+    </div>
+    <!-- Service 2 -->
+    <div class="service-item" style="display: flex; flex-direction: row-reverse; margin-bottom: 20px;">
+        <div class="service-image" style="flex: 1;">
+            <img src="./Z92_6599-Edit_hero.webp" alt="Service 2 Image" style="width: 100%; height: auto;">
+        </div>
+        <div class="service-description" style="flex: 2; padding-left: 20px;">
+            <h3 style="color: white;">Research and Development (R&D)</h3>
+            <p style="color: white;">R&D efforts involve experimenting with advanced materials, including carbon fiber composites, lightweight metals,
+                 and other innovative materials that offer high strength-to-weight ratios.
+                 The team explores the potential of new materials to improve performance.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <section class="contact-form">
+            <h2>Contact</h2>
+            <form id="footerForm" onsubmit="return validateForm()">
+                <input type="text" id="footerName" placeholder="Full Name" required>
+                <input type="email" id="footerEmail" placeholder="Email" required>
+                <textarea id="footerMessage" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <section class="sitemap">
+            <h2>Navigation</h2>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </section>
+        <section class="contact-info">
+            <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Image" style="width: 200px; height: auto;">
+            <h2>Contact Us</h2>
+            <p>Email: <a href="mailto:info@hermes.com">info@hermes.com</a></p>
+            <p>Phone: <a href="tel:+123456789">+123456789</a></p>
+        </section>
+    </div>
+</footer>
+
+<script>
+function validateForm() {
+    const name = document.getElementById('footerName').value;
+    const email = document.getElementById('footerEmail').value;
+    const message = document.getElementById('footerMessage').value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length < 3) {
+        alert('Full Name must be at least 3 characters long.');
+        return false;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+
+    if (message.length < 10) {
+        alert('Message must be at least 10 characters long.');
+        return false;
+    }
+
+    return true;
+}
+</script>
+</body>
+</html>

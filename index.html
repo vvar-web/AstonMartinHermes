@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Project - Home</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+<header>
+    <div style="float: left; margin-right: 20px;">
+        <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Logo" style="width: 300px; height: auto;">
+    </div>
+    <h1>Welcome to Aston Martin F1 team</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+ 
+<!-- Hero Banner-->
+<section class="hero">
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="/Hypercar_announcement_gallery_3.webp" alt="Carousel Image 1" class="active" style="height: 900px;">
+            <img src="/Z91_9962_28x16_3.webp" alt="Carousel Image 2" style="height: 900px;">
+        </div>
+        <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+        <button class="next" onclick="changeImage(1)">&#10095;</button>
+    </div>
+</section>
+ 
+<!-- About Us -->
+<section class="about-us">
+    <div class="about-container">
+        <div class="company-image" style="float: left; margin-right: 20px;">
+            <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Image" style="width: 200px; height: auto;">
+        </div>
+        <div class="company-info">
+            <h2 style="color: white;">About Us</h2>
+            <p style="color: white;">
+                Aston Martin's Grand Prix history can be traced back to 1922 at the French Grand Prix. From its debut,
+                via privateer heroics and a first attempt on the World Championship in 1959-60, through to the modern day 
+                and our comeback campaign in 2021, Aston Martin has a rich legacy in Formula One.
+                <a href="https://www.astonmartinf1.com/en-GB/heritage" class="more-button" style="color: white; text-decoration: underline;">More</a>
+            </p>
+        </div>
+    </div>
+</section>
+ 
+<!-- Sponsors-->
+<section class="sponsors">
+    <h2 style="color: white;">Our Sponsors</h2>
+    <div class="logo-container" style="display: flex; justify-content: space-around;">
+        <img src="./image-invert (3).png" alt="Cognizant" style="width: 150px; height: auto;">
+        <img src="./image-invert (1).png" alt="Puma" style="width: 150px; height: auto;">
+        <img src="./image-invert (2).png" alt="Glenfiddich" style="width: 150px; height: auto;">
+    </div>
+</section>
+ 
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <section class="contact-form">
+            <h2>Contact</h2>
+            <form id="footerForm" onsubmit="return validateForm()">
+                <input type="text" id="footerName" placeholder="Full Name" required>
+                <input type="email" id="footerEmail" placeholder="Email" required>
+                <textarea id="footerMessage" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <section class="sitemap">
+            <h2>Navigation</h2>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </section>
+        <section class="contact-info">
+            <img src="./amf1-logo-2024-white_-_Website_header.webp" alt="Company Image" style="width: 200px; height: auto;">
+            <h2>Contact Us</h2>
+            <p>Email: <a href="mailto:info@hermes.com">info@hermes.com</a></p>
+            <p>Phone: <a href="tel:+123456789">+123456789</a></p>
+        </section>
+    </div>
+</footer>
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.carousel-images img');
+
+function changeImage(direction) {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    images[currentIndex].classList.add('active');
+}
+
+function validateForm() {
+    const name = document.getElementById('footerName').value;
+    const email = document.getElementById('footerEmail').value;
+    const message = document.getElementById('footerMessage').value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length < 3) {
+        alert('Full Name must be at least 3 characters long.');
+        return false;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert('Please enter a valid email address.');
+        return false;
+    }
+
+    if (message.length < 10) {
+        alert('Message must be at least 10 characters long.');
+        return false;
+    }
+
+    return true;
+}
+</script>
+</body>
+</html>
