@@ -133,6 +133,15 @@ function validateForm() {
         return false;
     }
 
+    // Dispatch custom event
+    window.dispatchEvent(new CustomEvent('form-submit', {
+        detail: {
+            name: name,
+            email: email,
+            message: message
+        }
+    }));
+
     return true;
 }
 </script>
