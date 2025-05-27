@@ -78,12 +78,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer-container">
         <section class="contact-form">
             <h2>Contact</h2>
-            <form id="footerForm" onsubmit="return validateForm()">
-                <input type="text" id="footerName" placeholder="Full Name" required>
-                <input type="email" id="footerEmail" placeholder="Email" required>
-                <textarea id="footerMessage" placeholder="Your Message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+             <form id="footerForm" onsubmit="return validateForm(event)">
+        <input type="text" id="footerName" placeholder="Full Name" required>
+        <input type="email" id="footerEmail" placeholder="Email" required>
+        <textarea id="footerMessage" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
         </section>
         <section class="sitemap">
             <h2>Navigation</h2>
