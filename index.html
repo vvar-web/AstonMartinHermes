@@ -119,17 +119,17 @@ function validateForm() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (name.length < 3) {
-        alert('Full Name must be at least 3 characters long.');
+        showMessage('Full Name must be at least 3 characters long.', 'error');
         return false;
     }
 
     if (!emailPattern.test(email)) {
-        alert('Please enter a valid email address.');
+        showMessage('Please enter a valid email address.', 'error');
         return false;
     }
 
     if (message.length < 10) {
-        alert('Message must be at least 10 characters long.');
+        showMessage('Message must be at least 10 characters long.', 'error');
         return false;
     }
 
@@ -150,19 +150,78 @@ window.addEventListener('form-submit', function(event) {
     console.log('Form submitted successfully!');
     console.log('Form data:', event.detail);
     
-    // You can add additional handling here
-    // For example:
-    // - Send data to server
-    // - Show success message
-    // - Reset form
-    // - Analytics tracking
-    
-    // Example: Reset form after successful submission
+    // Reset form after successful submission
     document.getElementById('footerForm').reset();
     
-    // Example: Show success message
-    alert('Thank you for your message! We will get back to you soon.');
+    // Show thank you message
+    showMessage('Thank you for your message! We will get back to you soon.', 'success');
 });
+
+// Function to create and show custom messages
+function showMessage(text, type = 'info') {
+    // Remove any existing message
+    const existingMessage = document.querySelector('.custom-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `custom-message ${type}`;
+    messageDiv.textContent = text;
+    
+    // Style the message
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        max-width: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateX(100%);
+    `;
+    
+    // Set colors based on type
+    if (type === 'success') {
+        messageDiv.style.backgroundColor = '#4CAF50';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #45a049';
+    } else if (type === 'error') {
+        messageDiv.style.backgroundColor = '#f44336';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #da190b';
+    } else {
+        messageDiv.style.backgroundColor = '#2196F3';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #0b7dda';
+    }
+    
+    // Add to page
+    document.body.appendChild(messageDiv);
+    
+    // Animate in
+    setTimeout(() => {
+        messageDiv.style.opacity = '1';
+        messageDiv.style.transform = 'translateX(0)';
+    }, 10);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 300);
+    }, 4000);
+}
 </script>
 </body>
 </html>
