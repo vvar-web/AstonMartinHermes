@@ -33,10 +33,10 @@
     <p style="color: white;">Email: <a href="mailto:info@hermes.com" style="color: #FFA726; text-decoration: none;">info@hermes.com</a></p>
     <p style="color: white;">Phone: <a href="tel:+123456789" style="color: #FFA726; text-decoration: none;">+123456789</a></p>
     <!-- contact us form-->
-    <form id="contactForm" class="contact-form" onsubmit="return validateForm('contactForm')">
-        <input type="text" id="contactName" placeholder="Full Name" required>
-        <input type="email" id="contactEmail" placeholder="Email" required>
-        <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+     <form id="footerForm" onsubmit="return validateForm(event)">
+        <input type="text" id="footerName" placeholder="Full Name" required>
+        <input type="email" id="footerEmail" placeholder="Email" required>
+        <textarea id="footerMessage" placeholder="Your Message" required></textarea>
         <button type="submit">Send</button>
     </form>
   </section>
@@ -50,11 +50,12 @@
 <div class="footer-container">
     <section class="contact-form">
         <h2>Contact</h2>
-        <form id="footerForm" onsubmit="return validateForm('footerForm')">
-            <input type="text" id="footerName" placeholder="Full Name" required>
-            <input type="email" id="footerEmail" placeholder="Email" required>
-            <textarea id="footerMessage" placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
+        <form id="footerForm" onsubmit="return validateForm(event)">
+        <input type="text" id="footerName" placeholder="Full Name" required>
+        <input type="email" id="footerEmail" placeholder="Email" required>
+        <textarea id="footerMessage" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
         </form>
     </section>
     <section class="sitemap">
@@ -75,31 +76,132 @@
 </footer>
 
 <script>
-    function validateForm(formId) {
-        const form = document.getElementById(formId);
-        const name = form.querySelector('input[type="text"]').value;
-        const email = form.querySelector('input[type="email"]').value;
-        const message = form.querySelector('textarea').value;
+function validateForm(event) {
+    // Prevent default form submission
+    event.preventDefault();
     
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-        if (name.length < 3) {
-            alert('Full Name must be at least 3 characters long.');
-            return false;
-        }
-    
-        if (!emailPattern.test(email)) {
-            alert('Please enter a valid email address.');
-            return false;
-        }
-    
-        if (message.length < 10) {
-            alert('Message must be at least 10 characters long.');
-            return false;
-        }
-    
-        return true;
+    const name = document.getElementById('footerName').value;
+    const email = document.getElementById('footerEmail').value;
+    const message = document.getElementById('footerMessage').value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (name.length < 3) {
+        showMessage('Full Name must be at least 3 characters long.', 'error');
+        return false;
     }
+
+    if (!emailPattern.test(email)) {
+        showMessage('Please enter a valid email address.', 'error');
+        return false;
+    }
+
+    if (message.length < 10) {
+        showMessage('Message must be at least 10 characters long.', 'error');
+        return false;
+    }
+
+    // Dispatch custom event for general use
+    window.dispatchEvent(new CustomEvent('contact-form-submitted', {
+        detail: {
+            name: name,
+            email: email,
+            message: message
+        }
+    }));
+
+    // Push event to Google Tag Manager dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'contact_form_submission',
+        'form_name': 'footer_contact_form',
+        'form_data': {
+            'name': name,
+            'email': email,
+            'message': message
+        }
+    });
+
+    return false; // Always return false to prevent form submission
+}
+
+// Optional: Add event listener to handle the custom event
+window.addEventListener('contact-form-submitted', function(event) {
+    console.log('Form submitted successfully!');
+    console.log('Form data:', event.detail);
+    
+    // Reset form after successful submission
+    document.getElementById('footerForm').reset();
+    
+    // Show thank you message
+    showMessage('Thank you for your message! We will get back to you soon.', 'success');
+});
+
+// Function to create and show custom messages
+function showMessage(text, type = 'info') {
+    // Remove any existing message
+    const existingMessage = document.querySelector('.custom-message');
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+    
+    // Create message element
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `custom-message ${type}`;
+    messageDiv.textContent = text;
+    
+    // Style the message
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        padding: 15px 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        max-width: 300px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateX(100%);
+    `;
+    
+    // Set colors based on type
+    if (type === 'success') {
+        messageDiv.style.backgroundColor = '#4CAF50';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #45a049';
+    } else if (type === 'error') {
+        messageDiv.style.backgroundColor = '#f44336';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #da190b';
+    } else {
+        messageDiv.style.backgroundColor = '#2196F3';
+        messageDiv.style.color = 'white';
+        messageDiv.style.border = '2px solid #0b7dda';
+    }
+    
+    // Add to page
+    document.body.appendChild(messageDiv);
+    
+    // Animate in
+    setTimeout(() => {
+        messageDiv.style.opacity = '1';
+        messageDiv.style.transform = 'translateX(0)';
+    }, 10);
+    
+    // Auto remove after 4 seconds
+    setTimeout(() => {
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.remove();
+            }
+        }, 300);
+    }, 4000);
+}
     </script>
 </body>
 </html>
