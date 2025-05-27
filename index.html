@@ -111,7 +111,10 @@ function changeImage(direction) {
     images[currentIndex].classList.add('active');
 }
 
-function validateForm() {
+function validateForm(event) {
+    // Prevent default form submission
+    event.preventDefault();
+    
     const name = document.getElementById('footerName').value;
     const email = document.getElementById('footerEmail').value;
     const message = document.getElementById('footerMessage').value;
@@ -142,7 +145,7 @@ function validateForm() {
         }
     }));
 
-    return true;
+    return false; // Always return false to prevent form submission
 }
 
 // Optional: Add event listener to handle the custom event
