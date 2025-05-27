@@ -136,8 +136,8 @@ function validateForm(event) {
         return false;
     }
 
-    // Dispatch custom event
-    window.dispatchEvent(new CustomEvent('form-submit', {
+    // Dispatch custom event for general use
+    window.dispatchEvent(new CustomEvent('contact-form-submitted', {
         detail: {
             name: name,
             email: email,
@@ -145,11 +145,23 @@ function validateForm(event) {
         }
     }));
 
+    // Push event to Google Tag Manager dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        'event': 'contact_form_submission',
+        'form_name': 'footer_contact_form',
+        'form_data': {
+            'name': name,
+            'email': email,
+            'message': message
+        }
+    });
+
     return false; // Always return false to prevent form submission
 }
 
 // Optional: Add event listener to handle the custom event
-window.addEventListener('form-submit', function(event) {
+window.addEventListener('contact-form-submitted', function(event) {
     console.log('Form submitted successfully!');
     console.log('Form data:', event.detail);
     
@@ -223,7 +235,7 @@ function showMessage(text, type = 'info') {
                 messageDiv.remove();
             }
         }, 300);
-    }, 20000);
+    }, 4000);
 }
 </script>
 </body>
